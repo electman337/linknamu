@@ -1,24 +1,61 @@
 @import "tailwindcss";
 
+/* 색은 여기서만 정해요. 다크 모드도 따뜻한 톤 그대로 어둡게. */
 :root {
-  --background: #f4f4f5;
-  --foreground: #18181b;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --bg-from: #fdf8f1; /* 크림 */
+  --bg-to: #fbe2d0; /* 연한 살구 */
+  --blob-a: #ffd8be;
+  --blob-b: #ffe9d6;
+  --foreground: #3b2c25;
+  --muted: #8c7366;
+  --card: rgb(255 255 255 / 0.45);
+  --card-hover: rgb(255 255 255 / 0.62);
+  --card-border: rgb(255 255 255 / 0.75);
+  --shadow-tint: rgb(150 90 55 / 0.18);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #09090b;
-    --foreground: #f4f4f5;
+    --bg-from: #1d1714;
+    --bg-to: #2c1f18;
+    --blob-a: #4a2e20;
+    --blob-b: #33241c;
+    --foreground: #f6ece4;
+    --muted: #bba497;
+    --card: rgb(255 255 255 / 0.06);
+    --card-hover: rgb(255 255 255 / 0.1);
+    --card-border: rgb(255 255 255 / 0.12);
+    --shadow-tint: rgb(0 0 0 / 0.35);
   }
 }
 
+@theme inline {
+  --color-background: var(--bg-from);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-card-border: var(--card-border);
+  --color-shadow-tint: var(--shadow-tint);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
 body {
-  background: var(--background);
+  background: var(--bg-from);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: var(--font-sans);
+  word-break: keep-all;
+}
+
+/* 화면에 고정된 그라데이션 배경. 은은한 빛 번짐을 깔아 두면 유리 카드의 블러가 살아나요. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40rem 40rem at 10% 0%, var(--blob-a), transparent 60%),
+    radial-gradient(36rem 36rem at 100% 75%, var(--blob-b), transparent 60%),
+    linear-gradient(170deg, var(--bg-from) 0%, var(--bg-to) 100%);
 }
